@@ -74,5 +74,8 @@
         "wpftmp",
         "wwwroot",
         "xpress"
+    ],
+    "python.analysis.extraPaths": [
+        "./P2P Drone Base/P2P_Cogs/scanner_cogs"
     ]
 }

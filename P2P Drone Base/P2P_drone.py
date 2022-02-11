@@ -1,3 +1,4 @@
+from P2P_Cogs.scanner_cogs.get_ip import *
 import logging
 import sys
 from termcolor import cprint
@@ -16,8 +17,7 @@ logging.basicConfig(
 )
 import socket 
 import time
-hostname = socket.gethostname()
-address = socket.gethostbyname(hostname)
+address = get_ip()
 logging.debug(f"THIS IS ADDRESS {address}")
 port = 5598
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -28,7 +28,6 @@ try:
     logging.debug("Attempting to bind first time")
     s.bind((address,port))
     logging.debug("Bound successfully")
-        
 except:
     logging.error("Could not bind default socket 5598, retrying.", exc_info=True)
     for counts in range (3):
@@ -49,9 +48,10 @@ except:
                         logging.info(f"Bound to the port {ports}")
                         port_found = 1
                     except:
-                        logging.info(f"Could not bind to the port {ports} with address {address,ports}")
+                        logging.info(f"Could not bind to the port {ports} with address {address}:{ports}")
                         if ports == 5603:
                             logging.critical("COULD NOT BIND TO ANY PORTS, SHUTTING DOWN.", exc_info=True)
                             sys.exit()
+
 while True:
     time.sleep(1)
